@@ -34,3 +34,13 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Gen
+Assets/Generated
+Assets/Generated.meta
+
+# Mac
+**/.DS_Store
+
+# Idea
+**/.idea
