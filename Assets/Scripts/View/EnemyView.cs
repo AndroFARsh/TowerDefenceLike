@@ -15,8 +15,6 @@ namespace TowerDefenceLike
 
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
-			Debug.Log("Initialize Enemy");
-			
 			gameObject.SetActiveRecursively(true);
 			m_navMeshAgent = GetComponent<NavMeshAgent>();
 		
@@ -36,8 +34,6 @@ namespace TowerDefenceLike
 
 		public void DestroyView(GameEntity entity, Contexts contexts)
 		{
-			Debug.Log("Destroy Enemy");
-			m_navMeshAgent.isStopped = false;
 			m_navMeshAgent.ResetPath();
 			m_navMeshAgent.enabled = false;
 			gameObject.SetActiveRecursively(false);

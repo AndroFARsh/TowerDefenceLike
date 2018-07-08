@@ -48,6 +48,9 @@ namespace DefaultNamespace
                 
                 .Add(new NotifyPauseSystem(contexts))
                 .Add(new NotifyHalthUpdateSystem(contexts))
+                .Add(new NotifySpeedUpdateSystem(contexts))
+            
+                .Add(new SpeedSystem(contexts))
                 
                 .Add(new GunRotationSystem(contexts))
                 .Add(new SelectObjectSystem(contexts))
