@@ -1,48 +1,53 @@
-﻿using System.Collections.Generic;
-using Entitas;
+﻿using Entitas;
 using Entitas.Unity;
 using Smooth.Algebraics;
-using Smooth.Pools;
 using Smooth.Slinq;
-using UnityEditor;
 using UnityEngine;
 
 namespace TowerDefenceLike
 {
     public class UnityViewService : IViewService
     {
-        private readonly Contexts mContexts;
-        private readonly IGameObjectService mGameObjectService;
+        private readonly Contexts m_contexts;
+        private readonly IGameObjectService m_gameObjectService;
 
         public UnityViewService(Contexts contexts, IGameObjectService gameObjectService)
         {
-            mContexts = contexts;
-            mGameObjectService = gameObjectService;
+            m_contexts = contexts;
+            m_gameObjectService = gameObjectService;
         }
 
         public void Borrow(GameEntity entity, string assetName)
         {
-            mGameObjectService.Borrow(assetName)
+            m_gameObjectService.Borrow(assetName)
                 .ToOption()
                 .ForEach(go =>
                 {
-                    entity.AddGameObject(assetName, go);
-                    go.Link(entity, mContexts.game);
                     go.GetComponentsInChildren<IView>().Slinq()
-                        .ForEach(view => view.InitializeView(entity, mContexts));
+                        .ForEach(view =>
+                        {
+                            view.Link(entity, m_contexts.game);
+                            view.InitializeView(entity, m_contexts);
+                        });
+                    
+                    if (!entity.hasId) entity.AddId(go.GetInstanceID());   
+                    if (!entity.hasAssetName) entity.AddAssetName(assetName);
+                    if (!entity.hasGameObject) entity.AddGameObject(go);
                 });
         }
 
         public void Release(GameEntity entity)
         {
-            if (!entity.hasGameObject) return;
+            if (!entity.hasGameObject || !entity.hasAssetName) return;
             
-            var gameObjectComponent = entity.gameObject;
-            gameObjectComponent.go.GetComponentsInChildren<IView>().Slinq()
-                .ForEach(view => view.DestroyView(entity, mContexts));
-            gameObjectComponent.go.Unlink();
+            entity.gameObject.value.GetComponentsInChildren<IView>().Slinq()
+                .ForEach(view =>
+                {
+                    view.DestroyView(entity, m_contexts);
+                    view.Unlink();
+                });
             
-            mGameObjectService.Release(gameObjectComponent.assetName, gameObjectComponent.go);
+            m_gameObjectService.Release(entity.assetName.value, entity.gameObject.value);
             entity.Destroy();
         }
     }

@@ -1,5 +1,4 @@
-﻿using Entitas.Unity;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace TowerDefenceLike
@@ -7,8 +6,8 @@ namespace TowerDefenceLike
 	[RequireComponent(typeof(Image))]
 	public class PauseIconView : MonoBehaviour, IView
 	{
-		[SerializeField] private Sprite play;
-		[SerializeField] private Sprite pause;
+		[SerializeField] private Sprite m_play;
+		[SerializeField] private Sprite m_pause;
 		
 		private Image image;
 
@@ -24,7 +23,7 @@ namespace TowerDefenceLike
 
 		private void OnPauseListener(bool paused)
 		{
-			image.sprite = paused ? play : pause;
+			image.sprite = paused ? m_play : m_pause;
 		}
 	}
 }

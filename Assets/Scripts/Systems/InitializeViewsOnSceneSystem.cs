@@ -8,11 +8,11 @@ namespace TowerDefenceLike
 {
     public class InitializeViewsOnSceneSystem : IInitializeSystem, ITearDownSystem
     {
-        private readonly Contexts contexts;
+        private readonly Contexts m_contexts;
 
-        public InitializeViewsOnSceneSystem(Contexts c)
+        public InitializeViewsOnSceneSystem(Contexts contexts)
         {
-            contexts = c;
+            m_contexts = contexts;
         }
 
         public void Initialize()
@@ -25,10 +25,9 @@ namespace TowerDefenceLike
                 .Where(tupel => tupel.Item1 != null && tupel.Item2 != null)
                 .ForEach(tupel =>
                 {
-                    var entity = contexts.game.CreateEntity();
-                    var entityLink = tupel.Item1.GetEntityLink();
-                    if (entityLink == null) tupel.Item1.Link(entity, contexts.game);
-                    tupel.Item2.InitializeView(entity, contexts);
+                    var entity = m_contexts.game.CreateEntity();
+                    tupel.Item2.Link(entity, m_contexts.game);
+                    tupel.Item2.InitializeView(entity, m_contexts);
                 });
         }
 
@@ -37,13 +36,14 @@ namespace TowerDefenceLike
             GameObject.FindObjectsOfTypeAll(typeof(GameObject))
                 .Slinq()
                 .Select(obj => obj as GameObject)
-                .Select(go => Tuple.Create(go, go.GetComponent<IView>()))
-                .Where(tupel => tupel.Item1 != null && tupel.Item2 != null)
+                .Select(go => Tuple.Create(go.GetEntityLink(), go.GetComponent<IView>()))
+                .Where(tupel => tupel.Item2 != null)
                 .ForEach(tupel =>
                 {
-                    var entity = tupel.Item1.GetEntityLink().entity as GameEntity;
-                    if (entity != null) tupel.Item2.DestroyView(entity, contexts);
-                    tupel.Item1.Unlink();
+                    if (tupel.Item1 != null && tupel.Item1.entity != null)
+                        tupel.Item2.DestroyView((GameEntity)tupel.Item1.entity, m_contexts);
+                    
+                    tupel.Item2.Unlink();
                 });
         }
     }

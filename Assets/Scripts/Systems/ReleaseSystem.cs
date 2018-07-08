@@ -6,11 +6,11 @@ namespace TowerDefenceLike
 {
     public class ReleaseSystem : ReactiveSystem<GameEntity>
     {
-        private readonly MetaContext metaContext;
+        private readonly MetaContext m_context;
 
         public ReleaseSystem(Contexts contexts) : base(contexts.game)
         {
-            metaContext = contexts.meta;
+            m_context = contexts.meta;
         }
 
         protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -25,7 +25,7 @@ namespace TowerDefenceLike
 
         protected override void Execute(List<GameEntity> entities)
         {
-            var viewService = metaContext.viewService.value;
+            var viewService = m_context.viewService.value;
             entities.Slinq().ForEach(e => viewService.Release(e));
         }
     }

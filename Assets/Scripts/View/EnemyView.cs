@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Entitas;
+using Smooth.Algebraics;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace TowerDefenceLike
@@ -6,40 +8,44 @@ namespace TowerDefenceLike
 	[RequireComponent(typeof(NavMeshAgent))]
 	public class EnemyView : MonoBehaviour, IView
 	{
-		[SerializeField] private int halth = 3;
-		[SerializeField] private int hit = 1;
+		[SerializeField] private int m_halth = 3;
+		[SerializeField] private int m_hit = 1;
 		
-		private NavMeshAgent navMeshAgent;
+		private NavMeshAgent m_navMeshAgent;
 
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
+			Debug.Log("Initialize Enemy");
+			
 			gameObject.SetActiveRecursively(true);
-			navMeshAgent = GetComponent<NavMeshAgent>();
+			m_navMeshAgent = GetComponent<NavMeshAgent>();
 		
 			entity.isEnemy = true;
-			entity.AddHalth(halth, halth);
-			entity.AddHit(hit);
+			entity.AddHalth(m_halth, m_halth);
+			entity.AddHit(m_hit);
+			entity.AddPosition(() => transform.position);
+			entity.AddRotation(() => transform.rotation);
 			entity.AddPauseListener(PauseListener);
-
-			if (entity.hasName) gameObject.name = entity.name.value;	
-			
-			if (entity.hasStartDestinationPoint) {
-				transform.position = entity.startDestinationPoint.startPosition;
-				navMeshAgent.enabled = true;
-				navMeshAgent.destination =  entity.startDestinationPoint.destinationPosition;
-			}
+			entity.AddUpdatePosition(position =>  transform.position = position);
+			entity.AddUpdateDestinaltionPosition(position =>
+			{
+				m_navMeshAgent.enabled = true;
+				m_navMeshAgent.destination =  position;
+			});
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)
 		{
-			navMeshAgent.ResetPath();
-			navMeshAgent.enabled = false;
+			Debug.Log("Destroy Enemy");
+			m_navMeshAgent.isStopped = false;
+			m_navMeshAgent.ResetPath();
+			m_navMeshAgent.enabled = false;
 			gameObject.SetActiveRecursively(false);
 		}
 
 		private void PauseListener(bool paused)
 		{
-			navMeshAgent.isStopped = paused;
+			if (isActiveAndEnabled) m_navMeshAgent.isStopped = paused;
 		}
 	}
 }

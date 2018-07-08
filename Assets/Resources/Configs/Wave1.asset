@@ -11,12 +11,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638a0e894f31442fa4c53ad0da1a16c7, type: 3}
   m_Name: Wave1
   m_EditorClassIdentifier: 
-  Name: Wave 1
-  Delay: 10
-  Cheins:
-  - AssetName: Enemies/Enemy1
-    Delay: 5
-    Number: 20
-  - AssetName: Enemies/Enemy2
-    Delay: 5
-    Number: 2
+  m_name: 
+  m_delay: 5
+  m_cheins:
+  - assetName: Enemies/Enemy1
+    delay: 3
+    count: 6
+  - assetName: Enemies/Enemy2
+    delay: 5
+    count: 3
+  - assetName: Enemies/Enemy2
+    delay: 2
+    count: 5
+  - assetName: Enemies/Enemy1
+    delay: 3
+    count: 10

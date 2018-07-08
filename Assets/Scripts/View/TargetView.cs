@@ -6,13 +6,13 @@ namespace TowerDefenceLike
 {
 	public class TargetView : MonoBehaviour, IView
 	{
-		[SerializeField] private int halth = 25;
+		[SerializeField] private int m_halth = 25;
 		
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
 			entity.isTargetPoint = true;
+			entity.AddHalth(m_halth, m_halth);
 			entity.AddPosition(() => transform.position);
-			entity.AddHalth(halth, halth);
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)

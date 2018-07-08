@@ -1,12 +1,13 @@
 ﻿using Entitas;
+using Entitas.CodeGeneration.Attributes;
 using UnityEngine;
 
 namespace TowerDefenceLike
 {
     [Game]
-    public class GameObjectComponent : IComponent
+    public class BuildComponent : IComponent
     {
         public string assetName;
-        public GameObject go;
+        public Vector3 position;
     }
 }

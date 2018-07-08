@@ -3,8 +3,7 @@
 namespace TowerDefenceLike
 {
     [Game]
-    public class ChainIdComponent : IComponent
+    public class TowerComponent : IComponent
     {
-        public int value;
     }
 }

@@ -1,11 +1,10 @@
 ﻿namespace TowerDefenceLike
 {
-	public class MainHalthView : HalthView
+	public class MainHalthView : HalthView, IView
 	{
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
-			base.InitializeView(entity, contexts);
-			entity.AddName("");
+			base.InitializeView(contexts.game.targetPointEntity, contexts);
 		}
 	}
 }

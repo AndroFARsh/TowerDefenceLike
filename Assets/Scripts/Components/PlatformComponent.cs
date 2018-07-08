@@ -1,10 +1,8 @@
 ﻿using Entitas;
-
 namespace TowerDefenceLike
 {
     [Game]
-    public class NameComponent : IComponent
+    public class PlatformComponent : IComponent
     {
-        public string value;
     }
 }

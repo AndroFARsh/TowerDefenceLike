@@ -1,65 +1,47 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Entitas;
 using Smooth.Slinq;
-using UnityEngine;
 
 namespace TowerDefenceLike
 {
-    public class SpawnEnemySystem : IExecuteSystem
+    public class SpawnEnemySystem : ReactiveSystem<GameEntity>
     {
-        private readonly MetaContext metaContext;
-        private readonly GameContext gameContext;
-        private readonly IGroup<GameEntity> group;
+        private readonly MetaContext m_metaContext;
+        private readonly GameContext m_gameContext;
 
-        public SpawnEnemySystem(Contexts contexts)
+        public SpawnEnemySystem(Contexts contexts) : base(contexts.game)
         {
-            metaContext = contexts.meta;
-            gameContext = contexts.game;
-            group = gameContext.GetGroup(GameMatcher.Wave);
+            m_metaContext = contexts.meta;
+            m_gameContext = contexts.game;
         }
 
-        public void Execute()
+        protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
         {
-            if (gameContext.isPaused) return;
-
-            var target = gameContext.targetPointEntity.position.value;
-            var viewService = metaContext.viewService.value;
-
-            group.GetEntities()
-                .Slinq()
-                .ForEach(e => Spawn(e, target, viewService));
+            return context.CreateCollector(GameMatcher.EnemyAssetName);
         }
 
-        private void Spawn(GameEntity entity, Func<Vector3> target, IViewService viewService)
+        protected override bool Filter(GameEntity entity)
         {
-            var delay = entity.delay.value - Time.deltaTime;
-            if (delay > 0)
-            {
-                entity.ReplaceDelay(delay);
-                return;
-            }
+            return true;
+        }
 
-            var chainId = entity.chainId.value;
-            var enemyId = entity.enemyId.value + 1;
+        protected override void Execute(List<GameEntity> entities)
+        {
+            var target = m_gameContext.targetPointEntity.position.value;
+            var viewService = m_metaContext.viewService.value;
 
-            var wave = entity.wave.value;
-            if (wave.Count <= chainId) return;
+            entities.Slinq()
+                .ForEach(e =>
+                {
+                    var newEnemyEntty = m_gameContext.CreateEntity();
+                    viewService.Borrow(newEnemyEntty, e.enemyAssetName.value);
 
-            var chain = wave.Cheins[chainId];
-            if (chain.Number >= enemyId)
-            {
-                var newEnemyEntty = gameContext.CreateEntity();
-                newEnemyEntty.AddName($"{chain.AssetName}_{chainId}_{enemyId}");
-                newEnemyEntty.AddStartDestinationPoint(entity.position.value(), target());
-                viewService.Borrow(newEnemyEntty, chain.AssetName);
-                entity.ReplaceEnemyId(enemyId);
-                entity.ReplaceDelay(chain.Delay);
-            }
-            else
-            {
-                entity.ReplaceChainId(chainId + 1);
-                entity.ReplaceDelay(wave.Delay);
-            }
+                    if (newEnemyEntty.hasUpdatePosition)
+                        newEnemyEntty.updatePosition.value(e.initializePoint.value);
+                    
+                    if (newEnemyEntty.hasUpdateDestinaltionPosition)
+                        newEnemyEntty.updateDestinaltionPosition.value(target());
+                });
         }
     }
 }

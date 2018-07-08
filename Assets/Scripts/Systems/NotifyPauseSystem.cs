@@ -7,11 +7,11 @@ namespace TowerDefenceLike
 {
     public class NotifyPauseSystem : ReactiveSystem<GameEntity>
     {
-        private readonly IGroup<GameEntity> @group;
+        private readonly IGroup<GameEntity> m_group;
 
         public NotifyPauseSystem(Contexts contexts) : base(contexts.game)
         {
-            group = contexts.game.GetGroup(GameMatcher.PauseListener);
+            m_group = contexts.game.GetGroup(GameMatcher.PauseListener);
         }
 
         protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
@@ -28,7 +28,7 @@ namespace TowerDefenceLike
         {
             entities.Slinq()
                 .Select(e => e.isPaused)
-                .SelectMany(paused => @group.GetEntities().Slinq().Select(Tuple.Create, paused))
+                .SelectMany(paused => m_group.GetEntities().Slinq().Select(Tuple.Create, paused))
                 .ForEach(t => t.Item1.pauseListener.value(t.Item2));
         }
     }

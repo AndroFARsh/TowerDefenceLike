@@ -8,12 +8,12 @@ namespace TowerDefenceLike
 	[RequireComponent(typeof(Button))]
 	public class PauseButtonView : MonoBehaviour, IView
 	{
-		private Button button;
+		private Button m_button;
 
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
-			button = GetComponent<Button>();
-			button.onClick.AddListener(OnButtonClicked);
+			m_button = GetComponent<Button>();
+			m_button.onClick.AddListener(OnButtonClicked);
 			entity.isPaused = true;
 		}
 
