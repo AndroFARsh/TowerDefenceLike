@@ -6,12 +6,12 @@ using Tuple = System.Tuple;
 
 namespace TowerDefenceLike
 {
-    public class GunRotationSystem : IExecuteSystem
+    public class GunAimSystem : IExecuteSystem
     {
         private readonly GameContext m_context;
         private readonly IGroup<GameEntity> m_group;
 
-        public GunRotationSystem(Contexts contexts)
+        public GunAimSystem(Contexts contexts)
         {
             m_context = contexts.game;
             m_group = m_context.GetGroup(GameMatcher.FollowTo);
@@ -20,11 +20,20 @@ namespace TowerDefenceLike
         public void Execute()
         {
             m_group.GetEntities().Slinq()
+                .Where(entity => entity.hasRotation)
                 .Select(entity => Tuple.Create(entity, m_context.GetEntityWithId(entity.followTo.value).ToOption()
                     .Where(e => e.hasPosition).Select(e => e.position.value()).ValueOr(Vector3.zero)))
-                .ForEach(t => t.Item1.updateRotation.value(Quaternion.Slerp(t.Item1.rotation.value(),
-                    LookRotation(t.Item1.position.value(), t.Item2),
-                    Time.deltaTime * 10)));
+                .ForEach(t => Aim(t.Item1, t.Item2));
+        }
+
+        private static void Aim(GameEntity entity, Vector3 target)
+        {
+            var from = entity.rotation.value();
+            var to = LookRotation(entity.position.value(), target);
+
+            entity.isAimed = Quaternion.Angle(from, to) < 10;
+            entity.updateRotation.value(Quaternion.Slerp(from, to,
+                Time.deltaTime * entity.speed.value));
         }
 
         private static Quaternion LookRotation(Vector3 from, Vector3 to)

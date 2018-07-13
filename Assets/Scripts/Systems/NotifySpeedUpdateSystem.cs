@@ -27,7 +27,7 @@ namespace TowerDefenceLike
         protected override void Execute(List<GameEntity> entities)
         {
             entities.Slinq()
-                .Select(e => e.speed.value)
+                .Select(e => e.speedFactor.value)
                 .SelectMany(s =>
                     m_group.GetEntities().Slinq().Select(e => e.speedListener.value).Select(Tuple.Create, s))
                 .ForEach(t => t.Item1(t.Item2));

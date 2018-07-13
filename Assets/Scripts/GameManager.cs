@@ -52,14 +52,18 @@ namespace DefaultNamespace
             
                 .Add(new SpeedSystem(contexts))
                 
-                .Add(new GunRotationSystem(contexts))
+                .Add(new GunAimSystem(contexts))
                 .Add(new SelectObjectSystem(contexts))
                 .Add(new EnemySpawnDelayCountdownSystem(contexts))
                 .Add(new SpawnEnemySystem(contexts))
                 .Add(new SpawnTowerSystem(contexts))
                 
                 .Add(new ShootCoolDownSystem(contexts))
-                .Add(new ShootSystem(contexts))
+                .Add(new SpawnBulletSystem(contexts))
+                .Add(new MoveBulletSystem(contexts))
+                .Add(new BulletLifeTimeSystem(contexts))
+                .Add(new HitTrackSystem(contexts))
+                .Add(new CleanUpShootSystem(contexts))
                 
                 .Add(new DeathSystem(contexts))
                 .Add(new ReleaseSystem(contexts))

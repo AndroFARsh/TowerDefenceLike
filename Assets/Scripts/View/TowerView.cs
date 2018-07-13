@@ -11,21 +11,14 @@ namespace TowerDefenceLike
 			entity.AddPosition(() => transform.position);
 			entity.AddSetParrent(transform.SetParent);
 
-			if (entity.hasInitializePoint) transform.position = entity.initializePoint.value;
+			if (entity.hasInitializePoint) transform.position = entity.initializePoint.value();
+			
+			gameObject.SetActiveRecursively(true);
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)
 		{
-		}
-		
-		private void OnCollisionEnter(Collision other)
-		{
-			Debug.Log($"OnCollisionEnter: {other.transform.name}");
-		}
-
-		private void OnTriggerEnter(Collider other)
-		{
-			Debug.Log($"OnTriggerEnter: {other.name}");
+			gameObject.SetActiveRecursively(false);
 		}
 	}
 }

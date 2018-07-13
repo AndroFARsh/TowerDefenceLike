@@ -4,29 +4,21 @@ using Smooth.Slinq;
 
 namespace TowerDefenceLike
 {
-    public class ReleaseSystem : ReactiveSystem<GameEntity>
+    public class ReleaseSystem : ICleanupSystem
     {
         private readonly MetaContext m_context;
+        private readonly IGroup<GameEntity> m_group;
 
-        public ReleaseSystem(Contexts contexts) : base(contexts.game)
+        public ReleaseSystem(Contexts contexts)
         {
             m_context = contexts.meta;
+            m_group = contexts.game.GetGroup(GameMatcher.Release);
         }
 
-        protected override ICollector<GameEntity> GetTrigger(IContext<GameEntity> context)
-        {
-            return context.CreateCollector(GameMatcher.Release);
-        }
-
-        protected override bool Filter(GameEntity entity)
-        {
-            return true;
-        }
-
-        protected override void Execute(List<GameEntity> entities)
+        public void Cleanup()
         {
             var viewService = m_context.viewService.value;
-            entities.Slinq().ForEach(e => viewService.Release(e));
+            m_group.GetEntities().Slinq().ForEach(e => viewService.Release(e));
         }
     }
 }

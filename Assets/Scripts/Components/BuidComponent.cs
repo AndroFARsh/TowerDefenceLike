@@ -1,5 +1,5 @@
-﻿using Entitas;
-using Entitas.CodeGeneration.Attributes;
+﻿using System;
+using Entitas;
 using UnityEngine;
 
 namespace TowerDefenceLike
@@ -8,6 +8,6 @@ namespace TowerDefenceLike
     public class BuildComponent : IComponent
     {
         public string assetName;
-        public Vector3 position;
+        public Func<Vector3> position;
     }
 }

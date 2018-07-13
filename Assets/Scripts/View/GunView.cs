@@ -1,5 +1,4 @@
-﻿using Entitas;
-using Entitas.Unity;
+﻿using Entitas.Unity;
 using Smooth.Algebraics;
 using UnityEngine;
 
@@ -8,14 +7,11 @@ namespace TowerDefenceLike
     [RequireComponent(typeof(Collider))]
     public class GunView : MonoBehaviour, IView
     {
+        [SerializeField] private int m_speedAim = 5;
         [SerializeField] private int m_hit = 1;
         [SerializeField] private float m_cooldown = 2;
         
         private Collider m_collider;
-
-        public void DestroyView(GameEntity entity, Contexts contexts)
-        {
-        }
 
         public void InitializeView(GameEntity entity, Contexts contexts)
         {
@@ -23,7 +19,9 @@ namespace TowerDefenceLike
 
             entity.isGun = true;
             entity.isShotable = true;
+            entity.AddSpeed(m_speedAim);
             entity.AddHit(m_hit);
+            entity.AddDelay(0);
             entity.AddCooldown(m_cooldown);
             entity.AddRotation(() => transform.rotation);
             entity.AddPosition(() => transform.position);
@@ -36,7 +34,14 @@ namespace TowerDefenceLike
             });
             entity.AddUpdateRotation(quternion => transform.rotation = quternion);
 
-            if (entity.hasInitializePoint) transform.position += entity.initializePoint.value;
+            if (entity.hasInitializePoint) transform.position += entity.initializePoint.value();
+            
+            gameObject.SetActiveRecursively(true);
+        }
+        
+        public void DestroyView(GameEntity entity, Contexts contexts)
+        {
+            gameObject.SetActiveRecursively(false);
         }
 
         private void OnTriggerStay(Collider other)

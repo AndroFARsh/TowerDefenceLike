@@ -37,7 +37,7 @@ namespace TowerDefenceLike
                     viewService.Borrow(newEnemyEntty, e.enemyAssetName.value);
 
                     if (newEnemyEntty.hasUpdatePosition)
-                        newEnemyEntty.updatePosition.value(e.initializePoint.value);
+                        newEnemyEntty.updatePosition.value(e.initializePoint.value());
                     
                     if (newEnemyEntty.hasUpdateDestinaltionPosition)
                         newEnemyEntty.updateDestinaltionPosition.value(target());

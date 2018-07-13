@@ -6,7 +6,7 @@ using Tuple = System.Tuple;
 
 namespace TowerDefenceLike
 {
-    public class ShootCoolDownSystem : IExecuteSystem, IInitializeSystem
+    public class ShootCoolDownSystem : IExecuteSystem
     {
         private readonly GameContext m_context;
         private readonly IGroup<GameEntity> m_group;
@@ -17,24 +17,17 @@ namespace TowerDefenceLike
             m_group = m_context.GetGroup(GameMatcher.Shotable);
         }
 
-        public void Initialize()
-        {
-            m_group.GetEntities().Slinq()
-                .ForEach(entity => entity.AddDelay(0));
-        }
-
         public void Execute()
         {
             if (m_context.isPaused) return;
 
             m_group.GetEntities().Slinq()
-                .Where(entity => entity.hasFollowTo
-                                 && entity.hasCooldown
+                .Where(entity => entity.hasCooldown
                                  && entity.hasDelay)
                 .ForEach(entity =>
                 {
-                    var delay = entity.delay.value - Time.deltaTime;
-                    if (delay <= 0)
+                    var delay = Mathf.Max(entity.delay.value - Time.deltaTime, 0.0f);
+                    if (delay <= 0 && entity.hasFollowTo && entity.isAimed)
                     {
                         entity.isShoot = true;
                         delay = entity.cooldown.value;

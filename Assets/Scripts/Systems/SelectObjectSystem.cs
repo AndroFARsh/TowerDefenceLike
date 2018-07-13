@@ -28,7 +28,7 @@ namespace TowerDefenceLike
                     .ForEach(entity =>
                     {
                         var newEntity = m_context.CreateEntity();
-                        newEntity.AddBuild("Towers/Tower1", entity.position.value());
+                        newEntity.AddBuild("Towers/Tower1", entity.position.value);
                         entity.isSelecteble = false;
                     });
         }

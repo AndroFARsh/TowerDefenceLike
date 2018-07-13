@@ -27,7 +27,7 @@ namespace TowerDefenceLike
         protected override void Execute(List<GameEntity> entities)
         {
             entities.Slinq()
-                .Select(e => e.speed.value)
+                .Select(e => e.speedFactor.value)
                 .ForEach(scale => Time.timeScale = (float) scale);
         }
     }

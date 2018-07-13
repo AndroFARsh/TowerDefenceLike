@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using System;
+using Entitas;
 using UnityEngine;
 
 namespace TowerDefenceLike
@@ -6,6 +7,6 @@ namespace TowerDefenceLike
     [Game]
     public class InitializePointComponent : IComponent
     {
-        public Vector3 value;
+        public Func<Vector3> value;
     }
 }

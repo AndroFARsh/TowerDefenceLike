@@ -14,7 +14,7 @@ namespace TowerDefenceLike
 		{
 			m_button = GetComponent<Button>();
 			m_button.onClick.AddListener(OnButtonClicked);
-			entity.AddSpeed(SpeedFactor.x1);
+			entity.AddSpeedFactor(SpeedFactor.x1);
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)
@@ -26,7 +26,7 @@ namespace TowerDefenceLike
 			gameObject.GetEntityLink()
 				.ToOption()
 				.Select(link => link.entity as GameEntity)
-				.ForEach(e => e.ReplaceSpeed(e.speed.value.Next()));
+				.ForEach(e => e.ReplaceSpeedFactor(e.speedFactor.value.Next()));
 		}
 	}
 }

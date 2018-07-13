@@ -31,7 +31,7 @@ namespace TowerDefenceLike
                     {
                         var entity = m_context.CreateEntity();
                         entity.AddSpawnEnemyInfo(info);
-                        entity.AddInitializePoint(e.position.value());
+                        entity.AddInitializePoint(e.position.value);
                     }));
         }
     }
