@@ -23,6 +23,7 @@ namespace TowerDefenceLike
                 hit.ToOption()
                     .Where(raycastHit => raycastHit.transform != null)
                     .Select(raycastHit => raycastHit.transform.gameObject.GetEntityLink())
+                    .Where(link => link != null && link.entity != null)
                     .Select(link => link.entity as GameEntity)
                     .Where(entity => entity.isSelecteble)
                     .ForEach(entity =>

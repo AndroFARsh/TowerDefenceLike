@@ -48,9 +48,9 @@ namespace DefaultNamespace
                 
                 .Add(new NotifyPauseSystem(contexts))
                 .Add(new NotifyHalthUpdateSystem(contexts))
-                .Add(new NotifySpeedUpdateSystem(contexts))
+                .Add(new NotifySpeedFactorUpdateSystem(contexts))
             
-                .Add(new SpeedSystem(contexts))
+                .Add(new SpeedFactorSystem(contexts))
                 
                 .Add(new GunAimSystem(contexts))
                 .Add(new SelectObjectSystem(contexts))
@@ -63,6 +63,10 @@ namespace DefaultNamespace
                 .Add(new MoveBulletSystem(contexts))
                 .Add(new BulletLifeTimeSystem(contexts))
                 .Add(new HitTrackSystem(contexts))
+                
+                .Add(new SpawnExplosionSystem(contexts))
+                .Add(new ExplosionLifeTimeSystem(contexts))
+                
                 .Add(new CleanUpShootSystem(contexts))
                 
                 .Add(new DeathSystem(contexts))

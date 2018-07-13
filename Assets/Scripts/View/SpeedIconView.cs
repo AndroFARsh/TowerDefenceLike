@@ -15,14 +15,14 @@ namespace TowerDefenceLike
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
 			image = GetComponent<Image>();
-			entity.AddSpeedListener(OnSpeedListener);
+			entity.AddSpeedFactorListener(OnSpeedFactorListener);
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)
 		{
 		}
 
-		private void OnSpeedListener(SpeedFactor speedFactor)
+		private void OnSpeedFactorListener(SpeedFactor speedFactor)
 		{
 			switch (speedFactor)
 			{

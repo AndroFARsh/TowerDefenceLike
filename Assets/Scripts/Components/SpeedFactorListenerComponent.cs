@@ -4,7 +4,7 @@ using Entitas;
 namespace TowerDefenceLike
 {
     [Game]
-    public class SpeedListenerComponent : IComponent
+    public class SpeedFactorListenerComponent : IComponent
     {
         public Action<SpeedFactor> value;
     }
