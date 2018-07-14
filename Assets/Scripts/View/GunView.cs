@@ -21,8 +21,7 @@ namespace TowerDefenceLike
             entity.isShotable = true;
             entity.AddSpeed(m_speedAim);
             entity.AddHit(m_hit);
-            entity.AddDelay(0);
-            entity.AddCooldown(m_cooldown);
+            entity.AddTimer(0, m_cooldown);
             entity.AddRotation(() => transform.rotation);
             entity.AddPosition(() => transform.position);
 

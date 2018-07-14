@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 114919933219346456}
   - component: {fileID: 114357862422796884}
   m_Layer: 0
-  m_Name: HalthCanvas
+  m_Name: HealthCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4117fa9632ba41d3adaee363138b2286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_coins: 1
   m_halth: 3
   m_hit: 1
 --- !u!114 &114851185954410426

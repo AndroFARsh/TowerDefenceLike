@@ -3,8 +3,9 @@
 namespace TowerDefenceLike
 {
     [Game]
-    public class DelayComponent : IComponent
+    public class TimerComponent : IComponent
     {
         public float value;
+        public float initValue;
     }
 }

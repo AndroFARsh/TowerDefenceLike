@@ -5,11 +5,11 @@ using Smooth.Slinq;
 
 namespace TowerDefenceLike
 {
-    public class NotifyPauseSystem : ReactiveSystem<GameEntity>
+    public class PauseNotifySystem : ReactiveSystem<GameEntity>
     {
         private readonly IGroup<GameEntity> m_group;
 
-        public NotifyPauseSystem(Contexts contexts) : base(contexts.game)
+        public PauseNotifySystem(Contexts contexts) : base(contexts.game)
         {
             m_group = contexts.game.GetGroup(GameMatcher.PauseListener);
         }

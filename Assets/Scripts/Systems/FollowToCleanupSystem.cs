@@ -3,17 +3,16 @@ using Smooth.Slinq;
 
 namespace TowerDefenceLike
 {
-    public class CleanupFollowToSystem : ICleanupSystem
+    public class FollowToCleanupSystem : ICleanupSystem
     {
         private readonly GameContext m_context;
         private readonly IGroup<GameEntity> m_group;
 
-        public CleanupFollowToSystem(Contexts contexts)
+        public FollowToCleanupSystem(Contexts contexts)
         {
             m_context = contexts.game;
             m_group = contexts.game.GetGroup(GameMatcher.FollowTo);
         }
-
 
         public void Cleanup()
         {

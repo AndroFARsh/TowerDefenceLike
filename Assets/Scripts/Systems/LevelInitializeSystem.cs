@@ -2,12 +2,12 @@
 
 namespace TowerDefenceLike
 {
-    public class InitializeLevelSystem : IInitializeSystem
+    public class LevelInitializeSystem : IInitializeSystem
     {
         private readonly GameContext m_gameContext;
         private readonly MetaContext m_metaContext;
 
-        public InitializeLevelSystem(Contexts contexts)
+        public LevelInitializeSystem(Contexts contexts)
         {
             m_metaContext = contexts.meta;
             m_gameContext = contexts.game;

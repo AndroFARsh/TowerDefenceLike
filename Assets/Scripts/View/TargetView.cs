@@ -7,10 +7,12 @@ namespace TowerDefenceLike
 	public class TargetView : MonoBehaviour, IView
 	{
 		[SerializeField] private int m_halth = 25;
+		[SerializeField] private int m_coins = 20;
 		
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
 			entity.isTargetPoint = true;
+			entity.AddCoins(m_coins);
 			entity.AddHalth(m_halth, m_halth);
 			entity.AddPosition(() => transform.position);
 		}

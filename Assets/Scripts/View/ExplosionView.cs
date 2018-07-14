@@ -9,7 +9,8 @@ namespace TowerDefenceLike
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
 			entity.isExplosion = true;
-			entity.AddDelay(m_lifeTime);
+			entity.isCountdownTimer = true;
+			entity.AddTimer(m_lifeTime, m_lifeTime);
 			
 			if (entity.hasInitializePoint) transform.position = entity.initializePoint.value();
 			

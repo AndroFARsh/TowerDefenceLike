@@ -46,32 +46,33 @@ namespace DefaultNamespace
                 .Add(new InitializeViewsOnSceneSystem(contexts))
                 .Add(new InitializeWaveSystem(contexts))
                 
-                .Add(new NotifyPauseSystem(contexts))
-                .Add(new NotifyHalthUpdateSystem(contexts))
-                .Add(new NotifySpeedFactorUpdateSystem(contexts))
+                .Add(new PauseNotifySystem(contexts))
+                .Add(new HalthUpdateNotifySystem(contexts))
+                .Add(new SpeedFactorUpdateNotifySystem(contexts))
+                .Add(new CoinsUpdateNotifySystem(contexts))
             
                 .Add(new SpeedFactorSystem(contexts))
                 
                 .Add(new GunAimSystem(contexts))
                 .Add(new SelectObjectSystem(contexts))
-                .Add(new EnemySpawnDelayCountdownSystem(contexts))
+                .Add(new EnemySpawnCountdownSystem(contexts))
                 .Add(new SpawnEnemySystem(contexts))
                 .Add(new SpawnTowerSystem(contexts))
                 
-                .Add(new ShootCoolDownSystem(contexts))
+                .Add(new ShootCooldownSystem(contexts))
                 .Add(new SpawnBulletSystem(contexts))
                 .Add(new MoveBulletSystem(contexts))
-                .Add(new BulletLifeTimeSystem(contexts))
                 .Add(new HitTrackSystem(contexts))
                 
                 .Add(new SpawnExplosionSystem(contexts))
-                .Add(new ExplosionLifeTimeSystem(contexts))
+                .Add(new CountdownTimerSystem(contexts))
                 
-                .Add(new CleanUpShootSystem(contexts))
+                .Add(new ShootCleanupSystem(contexts))
                 
-                .Add(new DeathSystem(contexts))
+                .Add(new EnemyDieSystem(contexts))
+                .Add(new EnemyLootSystem(contexts))
                 .Add(new ReleaseSystem(contexts))
-                .Add(new CleanupFollowToSystem(contexts));
+                .Add(new FollowToCleanupSystem(contexts));
         }
     }
 }

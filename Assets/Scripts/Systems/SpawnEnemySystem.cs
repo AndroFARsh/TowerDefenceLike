@@ -31,13 +31,13 @@ namespace TowerDefenceLike
             var viewService = m_metaContext.viewService.value;
 
             entities.Slinq()
-                .ForEach(e =>
+                .ForEach(entity =>
                 {
                     var newEnemyEntty = m_gameContext.CreateEntity();
-                    viewService.Borrow(newEnemyEntty, e.enemyAssetName.value);
+                    viewService.Borrow(newEnemyEntty, entity.enemyAssetName.value);
 
                     if (newEnemyEntty.hasUpdatePosition)
-                        newEnemyEntty.updatePosition.value(e.initializePoint.value());
+                        newEnemyEntty.updatePosition.value(entity.initializePoint.value());
                     
                     if (newEnemyEntty.hasUpdateDestinaltionPosition)
                         newEnemyEntty.updateDestinaltionPosition.value(target());

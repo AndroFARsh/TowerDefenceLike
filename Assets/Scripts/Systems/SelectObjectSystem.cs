@@ -7,6 +7,7 @@ namespace TowerDefenceLike
 {
     public class SelectObjectSystem : IExecuteSystem
     {
+        private readonly int layerMask = LayerMask.GetMask("Selecteble"); 
         private readonly GameContext m_context;
         
         public SelectObjectSystem(Contexts contexts)
@@ -17,12 +18,13 @@ namespace TowerDefenceLike
         public void Execute()
         {
             if (!Input.GetMouseButtonDown(0)) return;
-            
-            var hit = new RaycastHit();
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                hit.ToOption()
-                    .Where(raycastHit => raycastHit.transform != null)
-                    .Select(raycastHit => raycastHit.transform.gameObject.GetEntityLink())
+
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var raycastHit = default(RaycastHit);
+            if (Physics.Raycast(ray, out raycastHit, float.PositiveInfinity, layerMask))
+                raycastHit.ToOption()
+                    .Where(hit => hit.transform != null)
+                    .Select(hit => hit.transform.gameObject.GetEntityLink())
                     .Where(link => link != null && link.entity != null)
                     .Select(link => link.entity as GameEntity)
                     .Where(entity => entity.isSelecteble)

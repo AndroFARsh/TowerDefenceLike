@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace TowerDefenceLike
 {
-    public class EnemySpawnDelayCountdownSystem : IExecuteSystem
+    public class EnemySpawnCountdownSystem : IExecuteSystem
     {
         private readonly GameContext m_context;
         private readonly IGroup<GameEntity> m_group;
 
-        public EnemySpawnDelayCountdownSystem(Contexts contexts)
+        public EnemySpawnCountdownSystem(Contexts contexts)
         {
             m_context = contexts.game;
             m_group = m_context.GetGroup(GameMatcher.SpawnEnemyInfo);
@@ -20,20 +20,20 @@ namespace TowerDefenceLike
             if (m_context.isPaused) return;
 
             m_group.GetEntities().Slinq()
-                .ForEach(e =>
+                .ForEach(entity =>
                 {
-                    var info = e.spawnEnemyInfo.value;
+                    var info = entity.spawnEnemyInfo.value;
+                    
                     info.delay -= Time.deltaTime;
-
                     if (info.delay <= 0)
                     {
                         var newEntity = m_context.CreateEntity();
                         newEntity.AddEnemyAssetName(info.assetName);
-                        newEntity.AddInitializePoint(e.initializePoint.value);
-                        e.Destroy();
+                        newEntity.AddInitializePoint(entity.initializePoint.value);
+                        entity.Destroy();
                     }
                     else
-                        e.ReplaceSpawnEnemyInfo(info);
+                        entity.ReplaceSpawnEnemyInfo(info);
                 });
         }
     }

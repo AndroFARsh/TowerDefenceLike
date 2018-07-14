@@ -5,11 +5,11 @@ using Smooth.Slinq;
 
 namespace TowerDefenceLike
 {
-    public class NotifySpeedFactorUpdateSystem : ReactiveSystem<GameEntity>
+    public class SpeedFactorUpdateNotifySystem : ReactiveSystem<GameEntity>
     {
         private readonly IGroup<GameEntity> m_group;
 
-        public NotifySpeedFactorUpdateSystem(Contexts contexts) : base(contexts.game)
+        public SpeedFactorUpdateNotifySystem(Contexts contexts) : base(contexts.game)
         {
             m_group = contexts.game.GetGroup(GameMatcher.SpeedFactorListener);
         }

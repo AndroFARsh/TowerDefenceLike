@@ -17,7 +17,8 @@ namespace TowerDefenceLike
 			m_collider = GetComponent<Collider>();
 
 			entity.isBullet = true;
-			entity.AddDelay(m_lifeTime);
+			entity.isCountdownTimer = true;
+			entity.AddTimer(m_lifeTime, m_lifeTime);
 			entity.AddSpeed(m_speed);
 			entity.AddPosition(() => transform.position);
 			entity.AddUpdatePosition(position => transform.position = position);
@@ -42,11 +43,7 @@ namespace TowerDefenceLike
 				.ToOption()
 				.Select(link => link.entity as GameEntity)
 				.Where(entity => entity.isBullet)
-				.ForEach(entity =>
-				{
-					Debug.Log("Bullet on Trigger");
-					entity.isRelease = true;
-				});
+				.ForEach(entity => entity.isRelease = true);
 		}
 	}
 }

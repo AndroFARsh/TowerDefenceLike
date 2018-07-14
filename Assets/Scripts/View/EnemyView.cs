@@ -1,6 +1,4 @@
-﻿using Entitas;
-using Smooth.Algebraics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace TowerDefenceLike
@@ -8,6 +6,7 @@ namespace TowerDefenceLike
 	[RequireComponent(typeof(NavMeshAgent))]
 	public class EnemyView : MonoBehaviour, IView
 	{
+		[SerializeField] private int m_coins = 1;
 		[SerializeField] private int m_halth = 3;
 		[SerializeField] private int m_hit = 1;
 		
@@ -21,6 +20,7 @@ namespace TowerDefenceLike
 			entity.isEnemy = true;
 			entity.AddHalth(m_halth, m_halth);
 			entity.AddHit(m_hit);
+			entity.AddCoins(m_coins);
 			entity.AddPosition(() => transform.position);
 			entity.AddRotation(() => transform.rotation);
 			entity.AddPauseListener(PauseListener);

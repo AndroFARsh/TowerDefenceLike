@@ -3,11 +3,11 @@ using Smooth.Slinq;
 
 namespace TowerDefenceLike
 {
-    public class CleanUpShootSystem : ICleanupSystem
+    public class ShootCleanupSystem : ICleanupSystem
     {
         private readonly IGroup<GameEntity> m_group;
 
-        public CleanUpShootSystem(Contexts contexts) 
+        public ShootCleanupSystem(Contexts contexts) 
         {
             m_group = contexts.game.GetGroup(GameMatcher.Shoot);
         }
