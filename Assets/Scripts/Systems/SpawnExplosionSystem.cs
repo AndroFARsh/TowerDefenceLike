@@ -22,7 +22,7 @@ namespace TowerDefenceLike
 
         protected override bool Filter(GameEntity entity)
         {
-            return entity.isBullet && entity.hasPosition;
+            return entity.isProjectile && entity.hasPosition;
         }
 
         protected override void Execute(List<GameEntity> entities)

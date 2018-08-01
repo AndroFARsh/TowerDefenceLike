@@ -15,12 +15,20 @@ namespace TowerDefenceLike
 
         protected override bool Filter(GameEntity entity)
         {
-            return entity.isEnemy && entity.halth.value <= 0;
+            return entity.isEnemy && 
+                   entity.halth.value <= 0 && 
+                   entity.hasDieListener;
         }
 
         protected override void Execute(List<GameEntity> entities)
         {
-            entities.Slinq().ForEach(e => e.isRelease = true);
+            entities.Slinq().ForEach(e =>
+            {
+                e.isDieing = true;
+                e.isCountdownTimer = true;
+                e.AddTimer(2, 2);
+                e.dieListener.value(e);
+            });
         }
     }
 }

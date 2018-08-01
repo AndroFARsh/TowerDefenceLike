@@ -1,4 +1,5 @@
 ﻿using Entitas;
+using Smooth.Collections;
 using TowerDefenceLike;
 using UnityEngine;
 
@@ -58,10 +59,11 @@ namespace DefaultNamespace
                 .Add(new EnemySpawnCountdownSystem(contexts))
                 .Add(new SpawnEnemySystem(contexts))
                 .Add(new SpawnTowerSystem(contexts))
+                .Add(new EnemyHUDLookAtSystem(contexts))
                 
                 .Add(new ShootCooldownSystem(contexts))
-                .Add(new SpawnBulletSystem(contexts))
-                .Add(new MoveBulletSystem(contexts))
+                .Add(new SpawnProjectileSystem(contexts))
+                .Add(new MoveProjectileSystem(contexts))
                 .Add(new HitTrackSystem(contexts))
                 
                 .Add(new SpawnExplosionSystem(contexts))
@@ -72,7 +74,11 @@ namespace DefaultNamespace
                 .Add(new EnemyDieSystem(contexts))
                 .Add(new EnemyLootSystem(contexts))
                 .Add(new ReleaseSystem(contexts))
-                .Add(new FollowToCleanupSystem(contexts));
+                .Add(new FollowToCleanupSystem(contexts))
+                .Add(new SwimSystem(contexts))
+                
+                .Add(new CameraMoveSystem(contexts))
+                .Add(new OptionDialogShowSystem(contexts));
         }
     }
 }

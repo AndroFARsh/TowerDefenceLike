@@ -17,7 +17,11 @@ namespace TowerDefenceLike
         public void Cleanup()
         {
             m_group.GetEntities().Slinq()
-                .Where(e => m_context.GetEntityWithId(e.followTo.value) == null)
+                .Where(e =>
+                {
+                    var followTo = m_context.GetEntityWithId(e.followTo.value);
+                    return followTo == null || followTo.isDieing;
+                })
                 .ForEach(e => e.RemoveFollowTo());
         }
     }

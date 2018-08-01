@@ -4,12 +4,15 @@ using UnityEngine;
 
 namespace TowerDefenceLike
 {
+    
+    
     [RequireComponent(typeof(Collider))]
     public class GunView : MonoBehaviour, IView
     {
         [SerializeField] private int m_speedAim = 5;
         [SerializeField] private int m_hit = 1;
         [SerializeField] private float m_cooldown = 2;
+        [SerializeField] private ProjectileType m_projectile = ProjectileType.Arrow;
         
         private Collider m_collider;
 
@@ -19,6 +22,7 @@ namespace TowerDefenceLike
 
             entity.isGun = true;
             entity.isShotable = true;
+            entity.AddProjectileType(m_projectile);
             entity.AddSpeed(m_speedAim);
             entity.AddHit(m_hit);
             entity.AddTimer(0, m_cooldown);

@@ -25,7 +25,7 @@ namespace TowerDefenceLike
         {
             return entity.hasFollowTo
                    && entity.hasHit
-                   && entity.isBullet;
+                   && entity.isProjectile;
         }
 
         protected override void Execute(List<GameEntity> entities)

@@ -11,11 +11,16 @@ namespace TowerDefenceLike
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
 			m_slider = GetComponent<Slider>();
-			entity.AddHalthListener((max, value) => m_slider.value = ((float) value) / max);
+			entity.AddHalthListener(OnHalthListener);
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)
 		{
+		}
+
+		private void OnHalthListener(int max, int value)
+		{
+			m_slider.value = Mathf.Max(0, ((float) value) / max);
 		}
 	}
 }

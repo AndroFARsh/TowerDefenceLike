@@ -15,7 +15,11 @@ namespace TowerDefenceLike
                 var pool = !m_pools.ContainsKey(assetName)
                     ? m_pools[assetName] = new Stack<GameObject>()
                     : m_pools[assetName];    
-                return pool.Count > 0 ? pool.Pop() : Create(assetName);
+                var gameObject = pool.Count > 0 ? 
+                       pool.Pop() : 
+                       Create(assetName);
+                gameObject.SetActiveRecursively(true);
+                return gameObject;
             }
         }
 
@@ -23,6 +27,7 @@ namespace TowerDefenceLike
         {
             lock (m_pools)
             {
+                gameObject.SetActiveRecursively(false);
                 (!m_pools.ContainsKey(assetName) 
                     ? m_pools[assetName] = new Stack<GameObject>() 
                     : m_pools[assetName]).Push(gameObject);

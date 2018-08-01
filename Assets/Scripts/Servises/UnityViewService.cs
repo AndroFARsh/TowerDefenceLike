@@ -23,7 +23,8 @@ namespace TowerDefenceLike
                 .ToOption()
                 .ForEach(go =>
                 {
-                    go.GetComponentsInChildren<IView>().Slinq()
+                    var list = go.GetComponentsInChildren<IView>();
+                    list.Slinq()
                         .ForEach(view =>
                         {
                             view.Link(entity, m_contexts.game);

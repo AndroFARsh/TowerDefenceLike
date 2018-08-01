@@ -35,10 +35,6 @@ namespace TowerDefenceLike
                     newTowerEntity.AddInitializePoint(entity.build.position);
                     viewService.Borrow(newTowerEntity, entity.build.assetName);
                     
-                    var newGunEntity = m_gameContext.CreateEntity();
-                    viewService.Borrow(newGunEntity, "Towers/Gun1");
-                    newGunEntity.setParrent.value(newTowerEntity.gameObject.value.transform, false);
-                    
                     entity.Destroy();
                 });
         }
