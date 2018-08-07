@@ -42,12 +42,9 @@ namespace TowerDefenceLike
                         var viewService = m_metaСontext.viewService.value;
                         
                         var newEntity = m_gameСontext.CreateEntity();
+                        newEntity.AddFollowTo(entity.id.value);
                         newEntity.AddInitializePoint(entity.position.value);
                         viewService.Borrow(newEntity, "BuildDialogHUD");
-                       
-                        
-//                        newEntity.AddBuild("Guns/Crossbow.001", entity.position.value);
-//                        entity.isSelecteble = false;
                     });
             }
         }

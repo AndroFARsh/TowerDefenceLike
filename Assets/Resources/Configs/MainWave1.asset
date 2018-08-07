@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: MainWave1
   m_EditorClassIdentifier: 
   m_name: 
-  m_delay: 5
+  m_delay: 7
   m_cheins:
   - assetName: Enemies/Sceleton
     delay: 3
-    count: 6
-  - assetName: Enemies/Sceleton
+    count: 10
+  - assetName: Enemies/IceWarrior
     delay: 5
-    count: 3
-  - assetName: Enemies/Sceleton
-    delay: 2
     count: 5
   - assetName: Enemies/Sceleton
-    delay: 3
-    count: 10
+    delay: 2
+    count: 20
+  - assetName: Enemies/RockWarrior
+    delay: 5
+    count: 3

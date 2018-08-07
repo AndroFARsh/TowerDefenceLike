@@ -88,8 +88,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b2b6c4ddcf12045eb976bd1ecab7744d, type: 2}
-  - {fileID: 2100000, guid: 5fb6fb47b04084262bdc86d2540e3473, type: 2}
+  - {fileID: 2100000, guid: 9ce78ca07f0a445eba3f9596ebc2fc8a, type: 2}
+  - {fileID: 2100000, guid: 9ce78ca07f0a445eba3f9596ebc2fc8a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_speedAim: 5
   m_hit: 1
   m_cooldown: 2
-  m_projectile: 1
+  m_projectile: 2
 --- !u!114 &114308040469825600
 MonoBehaviour:
   m_ObjectHideFlags: 1

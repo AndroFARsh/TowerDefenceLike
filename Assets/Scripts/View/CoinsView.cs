@@ -11,10 +11,7 @@ namespace TowerDefenceLike
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
 			m_amount = GetComponent<Text>();
-			entity.isRelease = true;
-			
-//			var trarget = contexts.game.targetPointEntity;
-//			trarget.AddCoinsListener(amount => m_amount.text = amount.ToString());
+			entity.AddCoinsListener(amount => m_amount.text = amount.ToString());
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)

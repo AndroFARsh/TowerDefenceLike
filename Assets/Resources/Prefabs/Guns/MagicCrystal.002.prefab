@@ -118,8 +118,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b2b6c4ddcf12045eb976bd1ecab7744d, type: 2}
-  - {fileID: 2100000, guid: 5fb6fb47b04084262bdc86d2540e3473, type: 2}
+  - {fileID: 2100000, guid: 9ce78ca07f0a445eba3f9596ebc2fc8a, type: 2}
+  - {fileID: 2100000, guid: 9ce78ca07f0a445eba3f9596ebc2fc8a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,7 +154,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5fb6fb47b04084262bdc86d2540e3473, type: 2}
+  - {fileID: 2100000, guid: 9ce78ca07f0a445eba3f9596ebc2fc8a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -229,7 +229,7 @@ Light:
     m_NormalBias: 0.4
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
+  m_DrawHalo: 1
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:

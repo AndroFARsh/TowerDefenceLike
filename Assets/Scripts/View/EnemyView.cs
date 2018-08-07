@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace TowerDefenceLike
 {
-	[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
+	[RequireComponent(typeof(NavMeshAgent))]
 	public class EnemyView : MonoBehaviour, IView
 	{
 		private static readonly int Die = Animator.StringToHash("Die");
@@ -24,7 +24,7 @@ namespace TowerDefenceLike
 		{
 			m_navMeshAgent = GetComponent<NavMeshAgent>().ToOption();
 			
-			m_animator = GetComponent<Animator>().ToOption();
+			m_animator = GetComponentInChildren<Animator>().ToOption();
 			m_animator.ForEach(animator => animator.SetBool(Die, false));
 			
 			m_collider = GetComponent<Collider>().ToOption();

@@ -78,7 +78,10 @@ namespace DefaultNamespace
                 .Add(new SwimSystem(contexts))
                 
                 .Add(new CameraMoveSystem(contexts))
-                .Add(new OptionDialogShowSystem(contexts));
+                .Add(new OptionDialogShowSystem(contexts))
+                
+                .Add(new GameOwerSystem(contexts))
+                .Add(new TearDownSystem(contexts));
         }
     }
 }

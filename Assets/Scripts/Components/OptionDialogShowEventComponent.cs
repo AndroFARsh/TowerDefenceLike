@@ -3,7 +3,7 @@ using Entitas.CodeGeneration.Attributes;
 
 namespace TowerDefenceLike
 {
-    [Event(EventTarget.Any)]
+    [Unique, Event(EventTarget.Any)]
     public class OptionDialogShowEventComponent : IComponent
     {
     }

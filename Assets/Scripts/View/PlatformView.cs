@@ -13,8 +13,8 @@ namespace TowerDefenceLike
 			
 			entity.isPlatform = true;
 			entity.isSelecteble = true;
+			entity.AddId(gameObject.GetInstanceID());
 			entity.AddPosition(() => buildTransform.position);
-			//entity.AddSetParrent(transform.SetParent);
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)

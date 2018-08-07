@@ -33,7 +33,9 @@ namespace TowerDefenceLike
                 var newButton = Instantiate(m_buttonPrefab, transform);
                 newButton.transform.localPosition = new Vector3(x, y, 0) * 100;
                 newButton.GetComponent<BuildButtonView>()
-                    .InitializeView(m_towers[i], entity.initializePoint.value, contexts, CloseDialog);
+                    .InitializeView(m_towers[i],
+                        entity.followTo.value,
+                        entity.initializePoint.value, contexts, CloseDialog);
             }
         }
 

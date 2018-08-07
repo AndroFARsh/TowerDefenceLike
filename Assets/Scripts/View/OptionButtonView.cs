@@ -8,17 +8,20 @@ namespace TowerDefenceLike
 	[RequireComponent(typeof(Button))]
 	public class OptionButtonView : MonoBehaviour, IView
 	{
+		private GameContext m_context;
 		private Button m_button;
 
 		public void InitializeView(GameEntity entity, Contexts contexts)
 		{
+			m_context = contexts.game;
+			
 			m_button = GetComponent<Button>();
 			m_button.onClick.AddListener(OnButtonClicked);
-			entity.isPaused = true;
 		}
 
 		public void DestroyView(GameEntity entity, Contexts contexts)
 		{
+			m_context = null;
 		}
 
 		private void OnButtonClicked()
@@ -26,11 +29,7 @@ namespace TowerDefenceLike
 			gameObject.GetEntityLink()
 				.ToOption()
 				.Select(link => link.entity as GameEntity)
-				.ForEach(e =>
-				{
-					e.isPaused = !e.isPaused;
-					
-				});
+				.ForEach(e => m_context.isOptionDialogShowEvent = true);
 		}
 	}
 }
