@@ -21,39 +21,47 @@ namespace TowerDefenceLike
         {
             m_group.GetEntities().Slinq()
                 .Where(entity => entity.hasPosition &&
+                                 entity.hasRotation &&
                                  entity.hasUpdatePosition &&
-                                 entity.hasCameraMoveConfig)
+                                 entity.hasCameraConfig)
                 .ForEach(Move);
         }
 
         private static void Move(GameEntity entity)
         {
-            var pos = entity.position.value();
-            var panBorrderThikness = entity.cameraMoveConfig.panBorrderThikness;
-            var panSpeed = entity.cameraMoveConfig.panSpeed;
-
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ) {
-                if (Input.mousePosition.x <= panBorrderThikness)
-                    pos.x += panSpeed * Mathf.Pow(1 - Input.mousePosition.x / panBorrderThikness, 3) * Time.deltaTime;
-                else if (Input.mousePosition.x >= Screen.width - panBorrderThikness)
-                    pos.x += panSpeed * Mathf.Pow((Screen.width - Input.mousePosition.x) / panBorrderThikness - 1, 3)
-                                      * Time.deltaTime;
-            }
+            var rotation = entity.rotation.value();
             
-            pos.y -= Input.GetAxis(MouseScorollWheel) * Time.deltaTime * entity.cameraMoveConfig.zoomSpeed * 100;
-
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            var pos = entity.position.value();
+            var panBorrderThikness = entity.cameraConfig.panBorrderThikness;
+            var panSpeed = entity.cameraConfig.panSpeed;
+            
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetMouseButton(2))
             {
+                var left = rotation * Vector3.left;
+                left.y = 0;
+                if (Input.mousePosition.x <= panBorrderThikness)
+                    pos += left * panSpeed * Mathf.Pow(1 - Input.mousePosition.x / panBorrderThikness, 3) * Time.deltaTime;
+                else if (Input.mousePosition.x >= Screen.width - panBorrderThikness)
+                    pos += left * panSpeed * Mathf.Pow((Screen.width - Input.mousePosition.x) / panBorrderThikness - 1, 3)
+                                     * Time.deltaTime;
+            }
+
+            pos.y -= Input.GetAxis(MouseScorollWheel) * Time.deltaTime * entity.cameraConfig.zoomSpeed * 100;
+
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetMouseButton(2))
+            {
+                var forward = rotation * Vector3.back;
+                forward.y = 0;
                 if (Input.mousePosition.y <= panBorrderThikness)
-                    pos.z += panSpeed * Mathf.Pow(1 - Input.mousePosition.y / panBorrderThikness, 3) * Time.deltaTime;
+                    pos += forward * panSpeed * Mathf.Pow(1 - Input.mousePosition.y / panBorrderThikness, 3) * Time.deltaTime;
                 else if (Input.mousePosition.y >= Screen.height - panBorrderThikness)
-                    pos.z += panSpeed * Mathf.Pow((Screen.height - Input.mousePosition.y) / panBorrderThikness - 1, 3)
+                    pos += forward * panSpeed * Mathf.Pow((Screen.height - Input.mousePosition.y) / panBorrderThikness - 1, 3)
                                       * Time.deltaTime;
             }
 
-            pos.x = Mathf.Clamp(pos.x, entity.cameraMoveConfig.panLimitX.x, entity.cameraMoveConfig.panLimitX.y);
-            pos.y = Mathf.Clamp(pos.y, entity.cameraMoveConfig.panLimitY.x, entity.cameraMoveConfig.panLimitY.y);
-            pos.z = Mathf.Clamp(pos.z, entity.cameraMoveConfig.panLimitZ.x, entity.cameraMoveConfig.panLimitZ.y);
+            pos.x = Mathf.Clamp(pos.x, entity.cameraConfig.panLimitX.x, entity.cameraConfig.panLimitX.y);
+            pos.y = Mathf.Clamp(pos.y, entity.cameraConfig.panLimitY.x, entity.cameraConfig.panLimitY.y);
+            pos.z = Mathf.Clamp(pos.z, entity.cameraConfig.panLimitZ.x, entity.cameraConfig.panLimitZ.y);
 
             entity.updatePosition.value(pos);
         }

@@ -77,6 +77,7 @@ namespace DefaultNamespace
                 .Add(new FollowToCleanupSystem(contexts))
                 .Add(new SwimSystem(contexts))
                 
+                .Add(new CameraRotationSystem(contexts))
                 .Add(new CameraMoveSystem(contexts))
                 .Add(new OptionDialogShowSystem(contexts))
                 

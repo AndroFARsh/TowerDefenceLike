@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f142f6ad41d4b8cbb5832feee933839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speedAim: 5
-  m_hit: 1
-  m_cooldown: 2
+  m_speedAim: 3
+  m_hit: 7
+  m_cooldown: 4
   m_projectile: 2
 --- !u!114 &114308040469825600
 MonoBehaviour:

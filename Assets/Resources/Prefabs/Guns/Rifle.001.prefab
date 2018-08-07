@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speedAim: 5
-  m_hit: 1
-  m_cooldown: 2
+  m_hit: 4
+  m_cooldown: 3
   m_projectile: 1
 --- !u!135 &135470714947409270
 SphereCollider:
